@@ -21,7 +21,7 @@ const [contractABI, setContractABI] = useState();
 const [marketAddress, setMarketAddress] = useState();
 ```
 
-Sync the `MarketItemCreated` event `/src/contracts/marketplaceBoilerplate.sol` contract with your Moralis Server, making the tableName `MarketItems`
+Sync the `MarketItemCreated` event `/src/contracts/marketplaceBoilerplate.sol` contract with the Moralis Server, making the tableName `MarketItems`
 ```jsx
 event MarketItemCreated (
   uint indexed itemId,
@@ -35,7 +35,7 @@ event MarketItemCreated (
 ```
 
 
-Run your App:
+Run App:
 ```sh
 yarn start
 ```
