@@ -315,7 +315,7 @@ function NFTTokenIds({ inputValue, setInputValue }) {
                     <Avatar 
                       style={styles.avatar1}
                       src="https://www.drummerworld.com/drummerworld1/trevorlawrence840.jpg"/>
-                    <Text style={{color: #ffff}}><b>Trevor Lawrence Jr.</b></Text>
+                    <Text style={{color: "#ffff"}}><b>Trevor Lawrence Jr.</b></Text>
                   </div>
                 </div>
                 <div style={styles.cardDetails}>
