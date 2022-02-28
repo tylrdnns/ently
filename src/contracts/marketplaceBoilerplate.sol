@@ -5,15 +5,17 @@ import "github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/uti
 import "github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC721/ERC721.sol";
 import "github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/security/ReentrancyGuard.sol";
 
-contract marketPlaceBoilerPlate is ReentrancyGuard {
+contract marketPlace is ReentrancyGuard {
     using Counters for Counters.Counter;
     Counters.Counter private _itemIds;
     Counters.Counter private _itemsSold;
     
      address public owner;
+     address public royalty;
      
      constructor() {
          owner = msg.sender;
+         royalty = {ENTER ROYALTY ADRESS}
      }
      
      struct MarketItem {
@@ -22,6 +24,7 @@ contract marketPlaceBoilerPlate is ReentrancyGuard {
          uint256 tokenId;
          address payable seller;
          address payable owner;
+         address payable royalty;
          uint256 price;
          bool sold;
      }
@@ -34,6 +37,7 @@ contract marketPlaceBoilerPlate is ReentrancyGuard {
         uint256 indexed tokenId,
         address seller,
         address owner,
+        address royalty,
         uint256 price,
         bool sold
      );
@@ -73,6 +77,7 @@ contract marketPlaceBoilerPlate is ReentrancyGuard {
                 tokenId,
                 msg.sender,
                 address(0),
+                payable(royalty),
                 price,
                 false
             );
@@ -92,7 +97,8 @@ contract marketPlaceBoilerPlate is ReentrancyGuard {
                 msg.sender
                 );
 
-            idToMarketItem[itemId].seller.transfer(msg.value);
+            idToMarketItem[itemId].seller.transfer(msg.value/2); //adjust the denominator to change the amount of dividends the seller gets 
+            idToMarketItem[itemId].royalty.transfer(msg.value/2); //adjust the denominator to change the amount of dividends the royalty gets 
             IERC721(nftContract).transferFrom(address(this), msg.sender, tokenId);
             idToMarketItem[itemId].owner = payable(msg.sender);
             _itemsSold.increment();
